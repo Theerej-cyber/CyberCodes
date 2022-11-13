@@ -13,26 +13,32 @@ def main():
 	parser.add_option('-H',dest='host',type='string',help="HostName")
 	parser.add_option('-U',dest='user',type='string',help='User')
 	parser.add_option('-P',dest='passw',type='string',help='Password')
-	parser.add_option('-C',dest='commands',type='string',help='Commands')
 	(options,args) = parser.parse_args()
 	host = options.host
 	user = options.user
-	password = options.passw
-	commands = str(options.commands).split(',')
+	password = options.passw	
 	client = paramiko.SSHClient()
 	if(host==None)|(user==None):
 	    print(parser.usage)
 	    exit(0)
 	connection(client,host,user,password)
-	for command in commands:
+	willingness = input("Are you willing to execute commands(yes/no): ")
+	flag = 0
+	if willingness == 'y':
+		flag = 1 
+	while flag == 1:
+		command = input("Enter the command you want to execute: ")
+		if command == 'exit':
+			print("Exiting the Program")
+			exit(0)
 		results = Command_Execution(client,command)
 		for line in results:
 			print(line)
 		print("********End of command********")
+		
 
 if __name__ == '__main__':
 	main()
-
 
 
 
