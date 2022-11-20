@@ -1,5 +1,5 @@
 import ftplib
-
+import socket
 def anonlog(host):
 	
 	pf = open("password.txt",'r')
